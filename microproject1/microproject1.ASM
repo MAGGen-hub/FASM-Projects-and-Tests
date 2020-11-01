@@ -40,16 +40,22 @@ Start: ; program start
     mov eax,2
     mov [counter],eax
 
-    fldz   ; add "zero"
-GetValue:
+    fldz    ; add "zero"
+GetValue: ;WARNING! repeats (check value and repeat function) works only with correct input! if you try to enter letters in scanf => program will stop working correctly!
     fst [x] ;x to zero
+
 
     push StrX
     call [printf]
+    add esp,4
+
+    mov edi,0
+    mov esi,0
 
     push x
     push scfprmlf
     call [scanf]
+    add esp, 8
 
 CheckValue: ;user check value
     invoke printf, StrCor,dword[x],dword[x+4]
